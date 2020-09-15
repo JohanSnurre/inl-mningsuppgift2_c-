@@ -1,5 +1,6 @@
 ﻿using System;
 
+//Author Johan Larsson, Johlax-8
 namespace inlämningsuppgift2
 {
     class Program
