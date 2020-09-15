@@ -125,6 +125,7 @@ namespace inlämningsuppgift2
                 }
 
                 Console.WriteLine(sellers[i].ToString());
+                outputFile.WriteLine(sellers[i].ToString());
 
             }
 
