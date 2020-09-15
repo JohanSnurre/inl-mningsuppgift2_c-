@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+
 
 //Author Johan Larsson, Johlax-8
 namespace inlämningsuppgift2
@@ -59,6 +61,12 @@ namespace inlämningsuppgift2
         {
             
             uint amount = askAmount();//you can't have a negative amount of sellers, so lets make space for a lot of them
+
+            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); //using synchronous stream to write to a textfile in the documents folder
+
+            StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "result.txt"));//creates a new textfile in the documents folder to write to. The file is called "result.txt"
+
+            
             
             Seller[] sellers = new Seller[amount];
             Console.WriteLine("\n\n");
@@ -96,6 +104,7 @@ namespace inlämningsuppgift2
             
             
             Console.WriteLine("NAMN | PERSONNUMMER | DISTRIKT | ARTIKLAR");
+            outputFile.WriteLine("NAMN | PERSONNUMMER | DISTRIKT | ARTIKLAR");
             int sellerCount = 0;
 
             for (int i = 0; i < sellers.Length; i++)//loop thourh the sellers array, count the amount of sellers on each level and print them out
@@ -105,6 +114,7 @@ namespace inlämningsuppgift2
                 else
                 {
                     Console.WriteLine(sellerCount + " säljare har uppnått nivå " + iter + "\n");
+                    outputFile.WriteLine(sellerCount + " säljare har uppnått nivå " + iter + "\n");//writing the same information to the textfile in /documents
                     sellerCount = 1;
                 }    
                 while (sellers[i].getArticles() > currentLevel)
@@ -119,12 +129,17 @@ namespace inlämningsuppgift2
             }
 
             Console.WriteLine(sellerCount + " säljare har uppnått nivå " + iter + "\n");//this is to print the last level 
+            outputFile.WriteLine(sellerCount + " säljare har uppnått nivå " + iter + "\n");//writing the same information to the textfile in /documents
             Console.WriteLine("\n\nNivå 0: Färre än 50 artiklar sålda\n" +
                               "Nivå 1: Mellan 50 och 99 artiklar sålda\n" +
                               "Nivå 2: Mellan 100 och 199 artiklar sålda\n" +
                               "Nivå 3: Fler än 199 artiklar sålda");//Just some information about the levels printed out
+            outputFile.WriteLine("\n\nNivå 0: Färre än 50 artiklar sålda\n" +
+                              "Nivå 1: Mellan 50 och 99 artiklar sålda\n" +
+                              "Nivå 2: Mellan 100 och 199 artiklar sålda\n" +
+                              "Nivå 3: Fler än 199 artiklar sålda"); //writing the same information to the textfile in /documents
 
-
+            outputFile.Close();//closes the textfile with the information inside
 
         }
 
